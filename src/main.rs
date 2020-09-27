@@ -11,6 +11,11 @@ use sdl2::rect::Rect;
 use sdl2::render::{Canvas, Texture, TextureCreator};
 use sdl2::video::{Window, WindowContext};
 
+use tetrissdl::parse_int_array;
+use std::fs::File;
+use std::io;
+use std::io::{Write, Read};
+
 const TEXTURE_SIZE: u32 = 32;
 
 #[derive(Debug)]
@@ -20,6 +25,12 @@ enum TextureColor {
 }
 
 fn main() {
+    {
+        let values = parse_int_array!();
+        println!("Tamanho {}", values.len());
+    }
+
+
     let sdl_context = sdl2::init().expect("SDL initialization
       failed");
     let video_subsystem = sdl_context.video().expect("Couldn't get
@@ -83,6 +94,11 @@ fn main() {
         canvas.set_draw_color(Color::RGB(255, 0, 0));
         // We draw it.
         canvas.clear();
+
+        canvas.copy(&image_texture, None, None)
+            .expect("Render failed");
+
+
         let display_green = match timer.elapsed() {
             Ok(elapsed) => elapsed.as_secs() % 2 == 0,
             Err(_) => {
@@ -128,3 +144,16 @@ fn create_texture_rect<'a>(canvas: &mut Canvas<Window>,
         None
     }
 }
+
+fn write_into_file(content: &str, file_name: &str) -> io::Result<()> {
+    let mut f = File::create(file_name)?;
+    f.write_all(content.as_bytes())
+}
+
+fn read_from_file(file_name: &str) -> io::Result<String> {
+    let mut file = File::open(file_name)?;
+    let mut content = String::new();
+    file.read_to_string(&mut content)?;
+    Ok(content)
+}
+

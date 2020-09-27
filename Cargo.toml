@@ -1,13 +1,18 @@
 [package]
-name = "tetris-sdl"
+name = "tetrissdl"
 version = "0.1.0"
 authors = ["Leonardo Vilela Pinheiro <leonardo@vilelapinheiro.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+# Add this under the "edition" field and before "[dependencies]"
+[lib]
+proc-macro = true
+
 [dependencies]
 sdl2 = "^0.30.0"
+quote = "^1.0.7"
 
 [features]
 default = ["sdl2/image"]
