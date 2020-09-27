@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated />
   </component>
@@ -12,7 +30,11 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b287f64a-9bf6-44e6-a9ab-5a4d8bb6a4b7" name="Default Changelist" comment="" />
+    <list default="true" id="b287f64a-9bf6-44e6-a9ab-5a4d8bb6a4b7" name="Default Changelist" comment="First commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,11 +45,15 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="cwa6dagu" />
   </component>
   <component name="ProjectId" id="1i40X3Qn6idEBt0Iudyz8ZRBcDt" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -39,7 +65,12 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
   </component>
-  <component name="RunManager" selected="Cargo.build">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Cargo.Run">
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="channel" value="DEFAULT" />
       <option name="command" value="run --package tetris-sdl --bin tetris-sdl" />
@@ -97,30 +128,57 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601151593281</updated>
-      <workItem from="1601151595343" duration="524000" />
+      <workItem from="1601151595343" duration="6059000" />
     </task>
+    <task id="LOCAL-00001" summary="First commit">
+      <created>1601152406357</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1601152406357</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="656" height="171" key="GridCell.Tab.0.bottom" timestamp="1601151823666">
+    <state width="656" height="171" key="GridCell.Tab.0.bottom" timestamp="1601157114286">
       <screen x="0" y="27" width="1360" height="741" />
     </state>
-    <state width="656" height="171" key="GridCell.Tab.0.bottom/0.27.1360.741@0.27.1360.741" timestamp="1601151823666" />
-    <state width="656" height="171" key="GridCell.Tab.0.center" timestamp="1601151823663">
+    <state width="656" height="171" key="GridCell.Tab.0.bottom/0.27.1360.741@0.27.1360.741" timestamp="1601157114286" />
+    <state width="656" height="171" key="GridCell.Tab.0.center" timestamp="1601157114285">
       <screen x="0" y="27" width="1360" height="741" />
     </state>
-    <state width="656" height="171" key="GridCell.Tab.0.center/0.27.1360.741@0.27.1360.741" timestamp="1601151823663" />
-    <state width="656" height="171" key="GridCell.Tab.0.left" timestamp="1601151823662">
+    <state width="656" height="171" key="GridCell.Tab.0.center/0.27.1360.741@0.27.1360.741" timestamp="1601157114285" />
+    <state width="656" height="171" key="GridCell.Tab.0.left" timestamp="1601157114281">
       <screen x="0" y="27" width="1360" height="741" />
     </state>
-    <state width="656" height="171" key="GridCell.Tab.0.left/0.27.1360.741@0.27.1360.741" timestamp="1601151823662" />
-    <state width="656" height="171" key="GridCell.Tab.0.right" timestamp="1601151823663">
+    <state width="656" height="171" key="GridCell.Tab.0.left/0.27.1360.741@0.27.1360.741" timestamp="1601157114281" />
+    <state width="656" height="171" key="GridCell.Tab.0.right" timestamp="1601157114286">
       <screen x="0" y="27" width="1360" height="741" />
     </state>
-    <state width="656" height="171" key="GridCell.Tab.0.right/0.27.1360.741@0.27.1360.741" timestamp="1601151823663" />
-    <state x="484" y="309" width="381" height="183" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1601152252210">
+    <state width="656" height="171" key="GridCell.Tab.0.right/0.27.1360.741@0.27.1360.741" timestamp="1601157114286" />
+    <state x="471" y="310" width="418" height="181" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601152260053">
       <screen x="0" y="27" width="1360" height="741" />
     </state>
-    <state x="484" y="309" width="381" height="183" key="git4idea.remote.GitConfigureRemotesDialog/0.27.1360.741@0.27.1360.741" timestamp="1601152252210" />
+    <state x="471" y="310" width="418" height="181" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1360.741@0.27.1360.741" timestamp="1601152260053" />
+    <state x="484" y="309" width="381" height="183" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1601152307061">
+      <screen x="0" y="27" width="1360" height="741" />
+    </state>
+    <state x="484" y="309" width="381" height="183" key="git4idea.remote.GitConfigureRemotesDialog/0.27.1360.741@0.27.1360.741" timestamp="1601152307061" />
   </component>
 </project>
