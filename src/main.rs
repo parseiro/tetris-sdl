@@ -15,9 +15,10 @@ use sdl2::rect::Rect;
 use sdl2::render::{Canvas, Texture, TextureCreator};
 use sdl2::video::{Window, WindowContext};
 
-use tetris::{LEVEL_LINES, LEVEL_TIMES, Tetris};
+use tetris::{Tetris};
 
 use crate::tetrimino::Tetrimino;
+use crate::tetris::LEVEL_TIMES;
 
 mod tetris;
 mod tetrimino;
@@ -148,6 +149,18 @@ fn main() {
             break;
         }
 
+        let ttf_context = sdl2::ttf::init().expect("SDL TTF initialization
+        failed");
+        let mut font = ttf_context.load_font("assets/lucon.ttf", 128).expect("Couldn't load the font");
+        font.set_style(sdl2::ttf::STYLE_BOLD);
+
+        let rendered_text = create_texture_from_text(&texture_creator,
+                                                     &font, "test", 0, 0, 0).expect("Cannot render text");
+        canvas.copy(&rendered_text, None, Some(Rect::new(width as i32 -
+                                                             40, 0, 40, 30))).expect("Couldn't copy text");
+        // display_game_information(&tetris, &mut canvas, &texture_creator, &font,
+        //                          width as i32 - grid_x - 10);
+
         // Draw the game map here.
         for (line_nb, line) in tetris.game_map.iter().enumerate() {
             for (case_nb, case) in line.iter().enumerate() {
@@ -176,9 +189,9 @@ fn create_texture_rect<'a>(canvas: &mut Canvas<Window>,
     texture_creator.create_texture_target(None, size, size) {
         canvas.with_texture_canvas(&mut square_texture, |texture| {
             match color {
-                TextureColor::Green =>                     texture.set_draw_color(Color::RGB(0, 255, 0)),
-                TextureColor::Blue =>                     texture.set_draw_color(Color::RGB(0, 0, 255)),
-                TextureColor::Red => texture.set_draw_color(Color::RGB(255,0, 0)),
+                TextureColor::Green => texture.set_draw_color(Color::RGB(0, 255, 0)),
+                TextureColor::Blue => texture.set_draw_color(Color::RGB(0, 0, 255)),
+                TextureColor::Red => texture.set_draw_color(Color::RGB(255, 0, 0)),
                 TextureColor::Black => texture.set_draw_color(Color::RGB(0, 0, 0)),
             }
             texture.clear();
@@ -353,4 +366,21 @@ fn update_vec(v: &mut Vec<u32>, value: u32) -> bool {
         }
         false
     }
+}
+
+fn create_texture_from_text<'a>(texture_creator: &'a TextureCreator<WindowContext>,
+                                font: &sdl2::ttf::Font,
+                                text: &str,
+                                r: u8, g: u8, b: u8,
+) -> Option<Texture<'a>> {
+    if let Ok(surface) = font.render(text)
+        .blended(Color::RGB(r, g, b)) {
+        texture_creator.create_texture_from_surface(&surface).ok()
+    } else {
+        None
+    }
+}
+
+fn get_rect_from_text(text: &str, x: i32, y: i32) -> Option<Rect> {
+    Some(Rect::new(x, y, text.len() as u32 * 20, 30))
 }

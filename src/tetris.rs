@@ -1,11 +1,11 @@
 // use core::option::Option::{None, Some};
 
 
-use crate::tetrimino::{Tetrimino, PIECE_STATES_LINES, PIECE_STATES_COLUMNS};
+use crate::tetrimino::{Tetrimino, PIECE_STATES_LINES};
 use crate::game_map::{GameMap, GAMEMAP_COLUMNS, GAMEMAP_LINES};
 
 pub(crate) const LEVEL_TIMES: [u32; 10] = [1000, 850, 700, 600, 500, 400, 300, 250, 221, 190];
-pub(crate) const LEVEL_LINES: [u32; 10] = [20,   40,  60,  80,  100, 120, 140, 160, 180, 200];
+const LEVEL_LINES: [u32; 10] = [20,   40,  60,  80,  100, 120, 140, 160, 180, 200];
 
 pub struct Tetris {
     pub(crate) game_map: GameMap,
@@ -73,7 +73,7 @@ impl Tetris {
 
         self.add_to_score(to_add);
 
-        let score = self.game_map.check_lines(self.get_current_level());
+        let score = self.check_lines(self.get_current_level());
 
         self.add_to_score(score);
 
@@ -114,12 +114,50 @@ impl Tetris {
         self.score += to_add;
     }
 
+    fn increase_level(&mut self) {
+        self.current_level += 1;
+    }
+
     fn increase_line(&mut self) {
         self.nb_lines += 1;
-        if self.nb_lines > LEVEL_LINES[self.current_level as usize - 1] {
-            self.current_level += 1;
+        if self.nb_lines > LEVEL_LINES[self.get_current_level() as usize - 1] {
+            self.increase_level();
         }
     }
 
+    fn check_lines(&mut self, current_level: u32) -> u32 {
+        let mut line = 0;
+        let mut score_add = 0;
+
+        while line < self.game_map.map.len() {
+            let mut complete = true;
+
+            for column in &self.game_map.map[line] {
+                if *column == 0 {
+                    complete = false;
+                    break;
+                }
+            }
+
+            if complete == true {
+                score_add += current_level;
+                self.game_map.map.remove(line);
+                line -= 1;
+                // increase the number of self.lines
+            }
+            line += 1;
+        }
+
+        if self.game_map.map.len() == 0 {
+            // A tetris!
+            score_add += 1000;
+        }
+        while self.game_map.map.len() < GAMEMAP_LINES {
+            self.increase_line();
+            self.game_map.map.insert(0, vec![0; GAMEMAP_COLUMNS]);
+        }
+
+        score_add
+    }
 
 }

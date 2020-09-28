@@ -1,8 +1,8 @@
-use crate::tetris::Tetris;
+// use crate::tetris::Tetris;
 use std::slice::Iter;
 
 pub(crate) struct GameMap {
-    map: Vec<Vec<u8>>,
+    pub(crate) map: Vec<Vec<u8>>,
 }
 
 
@@ -34,41 +34,11 @@ impl GameMap {
         self.map.len()
     }
 
-    pub(crate) fn check_lines(&mut self, current_level: u32) -> u32 {
-        let mut line = 0;
-        let mut score_add = 0;
 
-        while line < self.map.len() {
-            let mut complete = true;
-
-            for column in &self.map[line] {
-                if *column == 0 {
-                    complete = false;
-                    break;
-                }
-            }
-
-            if complete == true {
-                score_add += current_level;
-                self.map.remove(line);
-                line -= 1;
-                // increase the number of self.lines
-            }
-            line += 1;
-        }
-
-        if self.map.len() == 0 {
-            // A tetris!
-            score_add += 1000;
-        }
-        while self.map.len() < GAMEMAP_LINES {
-            self.map.insert(0, vec![0; GAMEMAP_COLUMNS]);
-        }
-
-        score_add
-    }
 
     pub(crate) fn iter(&self) -> Iter<'_, Vec<u8>> {
         self.map.iter()
     }
+
+
 }
