@@ -11,7 +11,7 @@ type Piece = Vec<Vec<u8>>;
 type States = Vec<Piece>;
 
 pub struct Tetrimino {
-    states: States,
+    pub(crate) states: States,
     x: isize,
     y: usize,
     current_state: u8,

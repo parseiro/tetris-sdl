@@ -16,4 +16,7 @@ quote = "^1.0.7"
 rand = "0.7.3"
 
 [features]
-default = ["sdl2/image"]
+default = ["sdl2/ttf"]
+
+[profile.release]
+lto = true

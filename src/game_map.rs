@@ -1,4 +1,5 @@
 use crate::tetris::Tetris;
+use std::slice::Iter;
 
 pub(crate) struct GameMap {
     map: Vec<Vec<u8>>,
@@ -65,5 +66,9 @@ impl GameMap {
         }
 
         score_add
+    }
+
+    pub(crate) fn iter(&self) -> Iter<'_, Vec<u8>> {
+        self.map.iter()
     }
 }

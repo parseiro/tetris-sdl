@@ -10,8 +10,8 @@ pub(crate) const LEVEL_LINES: [u32; 10] = [20,   40,  60,  80,  100, 120, 140, 1
 pub struct Tetris {
     pub(crate) game_map: GameMap,
     current_level: u32,
-    score: u32,
-    nb_lines: u32,
+    pub(crate) score: u32,
+    pub(crate) nb_lines: u32,
     current_piece: Option<Tetrimino>,
 }
 

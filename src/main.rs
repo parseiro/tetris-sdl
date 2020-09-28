@@ -8,7 +8,7 @@ use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 
 use sdl2::event::Event;
-use sdl2::image::{INIT_JPG, INIT_PNG, LoadTexture};
+// use sdl2::image::{INIT_JPG, INIT_PNG, LoadTexture};
 use sdl2::keyboard::Keycode;
 use sdl2::pixels::Color;
 use sdl2::rect::Rect;
@@ -25,115 +25,62 @@ mod game_map;
 
 // use tetrissdl::parse_int_array;
 
-const TEXTURE_SIZE: u32 = 32;
+//const TEXTURE_SIZE: u32 = 32;
+
+const TETRIS_HEIGHT: usize = 40;
+const HIGHSCORE_FILE: &'static str = "scores.txt";
 
 
 #[derive(Debug)]
 enum TextureColor {
     Green,
     Blue,
+    Red,
+    Black,
 }
 
 fn main() {
-    /*    {
-            let values = parse_int_array!();
-            println!("Tamanho {}", values.len());
-        }*/
+    let sdl_context = sdl2::init().expect("SDL initialization failed");
 
+    let video_subsystem = sdl_context.video().expect("Couldn't get SDL video subsystem");
+    let width = 600;
+    let height = 800;
 
-    let sdl_context = sdl2::init().expect("SDL initialization
-      failed");
-    let video_subsystem = sdl_context.video().expect("Couldn't get
-       SDL video subsystem");
-
-    let window = video_subsystem.window("rust-sdl2 demo: Video", 800,
-                                        600)
-        .position_centered()
-        .opengl()
-        .build()
-        .expect("Failed to create window");
-
-    let mut canvas = window
-        .into_canvas()
-        .target_texture()
-        .present_vsync()
-        .build()
-        .expect("Failed to convert window into canvas");
-
-    let texture_creator = canvas.texture_creator();
-
-    sdl2::image::init(INIT_PNG | INIT_JPG).expect("Couldn't initialize
-         image context");
-
-    let image_texture =
-        texture_creator.load_texture("assets/my_image.png")
-            .expect("Couldn't load image");
-
-    texture_creator.create_texture_target(None, TEXTURE_SIZE,
-                                          TEXTURE_SIZE)
-        .expect("Failed to create a texture");
-
-    // We create a texture with a 32x32 size.
-    let green_square = create_texture_rect(&mut canvas,
-                                           &texture_creator,
-                                           TextureColor::Green,
-                                           TEXTURE_SIZE).expect("Failed to create a texture");
-
-    let blue_square = create_texture_rect(&mut canvas,
-                                              &texture_creator,
-                                              TextureColor::Blue,
-                                              TEXTURE_SIZE).expect("Failed to create a texture");
     let mut tetris = Tetris::new();
-
     let mut timer = SystemTime::now();
 
-    let mut event_pump = sdl_context.event_pump().expect("Failed to
-        get SDL event pump");
+    let mut event_pump = sdl_context.event_pump().expect("Failed to get SDL event pump");
 
-/*    'running: loop {
-        for event in event_pump.poll_iter() {
-            match event {
-                Event::Quit { .. } |
-                Event::KeyDown { keycode: Some(Keycode::Escape), .. } =>
-                    {
-                        break 'running;
-                    }
-                _ => {}
-            }
-        }
+    // let grid_x = (width - TETRIS_HEIGHT as u32 * 10) as i32 / 2;
+    let grid_x = 20;
+    let grid_y = (height - TETRIS_HEIGHT as u32 * 16) as i32 / 2;
 
-        // We set fulfill our window with red.
-        canvas.set_draw_color(Color::RGB(255, 0, 0));
-        // We draw it.
-        canvas.clear();
+    let window = video_subsystem.window("Tetris", width, height)
+        .position_centered() // to put it in the middle of the screen
+        .build() // to create the window
+        .expect("Failed to create window");
 
-        canvas.copy(&image_texture, None, None)
-            .expect("Render failed");
+    let mut canvas = window.into_canvas()
+        .target_texture()
+        .present_vsync() // To enable v-sync.
+        .build()
+        .expect("Couldn't get window's canvas");
 
+    let texture_creator: TextureCreator<_> = canvas.texture_creator();
 
-        let display_green = match timer.elapsed() {
-            Ok(elapsed) => elapsed.as_secs() % 2 == 0,
-            Err(_) => {
-                // In case of error, we do nothing...
-                true
-            }
-        };
-        let square_texture = if display_green {
-            &green_square
-        } else {
-            &blue_square
-        };
-        // Copy our texture into the window.
-        canvas.copy(square_texture,
-                    None,
-                    // We copy it at the top-left of the window with a 32x32
-                    Rect::new(0, 0, TEXTURE_SIZE, TEXTURE_SIZE))
-            .expect("Couldn't copy texture into window");
-        // We update window's display.
-        canvas.present();
+    let grid = create_texture_rect(&mut canvas, &texture_creator, TextureColor::Black, TETRIS_HEIGHT as u32 * 10).expect("Failed to create a texture");
 
-        sleep(Duration::new(0, 1_000_000_000u32 / 60));
-    }*/
+    let border = create_texture_rect(&mut canvas, &texture_creator, TextureColor::Blue, TETRIS_HEIGHT as u32 * 10 + 20).expect("Failed to create a texture");
+
+    macro_rules! texture {
+        ($r:expr, $g:expr, $b:expr) => (
+            create_texture_rect(&mut canvas, &texture_creator, TextureColor::Green, TETRIS_HEIGHT as u32).unwrap()
+        )
+      }
+
+    let textures = [texture!(255, 69, 69), texture!(255, 220, 69),
+        texture!(237, 150, 37), texture!(171, 99, 237), texture!(77, 149,
+        239), texture!(39, 218, 225), texture!(45, 216, 47)];
 
     loop {
         if is_time_over(&tetris, &timer) {
@@ -149,7 +96,22 @@ fn main() {
             timer = SystemTime::now();
         }
 
-        // We need to draw the tetris "grid" in here.
+        canvas.set_draw_color(Color::RGB(255, 0, 0));
+        canvas.clear();
+
+        // Draw the tetris "grid" in here.
+        canvas.copy(&border,
+                    None,
+                    Rect::new(10,
+                              (height - TETRIS_HEIGHT as u32 * 16) as i32 / 2 - 10,
+                              TETRIS_HEIGHT as u32 * 10 + 20, TETRIS_HEIGHT as u32 * 16 + 20))
+            .expect("Couldn't copy texture into window");
+        canvas.copy(&grid,
+                    None,
+                    Rect::new(20,
+                              (height - TETRIS_HEIGHT as u32 * 16) as i32 / 2,
+                              TETRIS_HEIGHT as u32 * 10, TETRIS_HEIGHT as u32 * 16))
+            .expect("Couldn't copy texture into window");
 
         if tetris.get_current_piece().is_none() {
             let current_piece = Tetrimino::create_new_tetrimino();
@@ -161,18 +123,46 @@ fn main() {
         }
 
         let mut quit = false;
+
         if !handle_events(&mut tetris, &mut quit, &mut timer, &mut event_pump) {
             if let Some(mut piece) = tetris.get_current_piece() {
-                // We need to draw our current tetrimino here
-
+                for (line_nb, line) in piece.states[piece.get_current_state() as usize].iter().enumerate() {
+                    for (case_nb, case) in line.iter().enumerate() {
+                        if *case == 0 {
+                            continue;
+                        }
+                        // The new part is here:
+                        canvas.copy(&textures[*case as usize - 1],
+                                    None,
+                                    Rect::new(grid_x + (piece.get_x() + case_nb as isize) as
+                                        i32 * TETRIS_HEIGHT as i32, grid_y + (piece.get_y() +
+                                        line_nb) as i32 * TETRIS_HEIGHT as i32, TETRIS_HEIGHT
+                                                  as u32, TETRIS_HEIGHT as u32))
+                            .expect("Couldn't copy texture into window");
+                    }
+                }
             }
         }
         if quit {
             print_game_information(&tetris);
-            break
+            break;
         }
 
-        // TODO: we need to draw the game map here.
+        // Draw the game map here.
+        for (line_nb, line) in tetris.game_map.iter().enumerate() {
+            for (case_nb, case) in line.iter().enumerate() {
+                if *case == 0 {
+                    continue;
+                }
+                canvas.copy(&textures[*case as usize - 1],
+                            None, Rect::new(grid_x + case_nb as i32 * TETRIS_HEIGHT
+                        as i32, grid_y + line_nb as i32 * TETRIS_HEIGHT as i32,
+                                            TETRIS_HEIGHT as u32, TETRIS_HEIGHT as u32))
+                    .expect("Couldn't copy texture into window");
+            }
+        }
+
+        canvas.present();
 
         sleep(Duration::new(0, 1_000_000u32 / 60));
     }
@@ -186,10 +176,10 @@ fn create_texture_rect<'a>(canvas: &mut Canvas<Window>,
     texture_creator.create_texture_target(None, size, size) {
         canvas.with_texture_canvas(&mut square_texture, |texture| {
             match color {
-                TextureColor::Green =>
-                    texture.set_draw_color(Color::RGB(0, 255, 0)),
-                TextureColor::Blue =>
-                    texture.set_draw_color(Color::RGB(0, 0, 255)),
+                TextureColor::Green =>                     texture.set_draw_color(Color::RGB(0, 255, 0)),
+                TextureColor::Blue =>                     texture.set_draw_color(Color::RGB(0, 0, 255)),
+                TextureColor::Red => texture.set_draw_color(Color::RGB(255,0, 0)),
+                TextureColor::Black => texture.set_draw_color(Color::RGB(0, 0, 0)),
             }
             texture.clear();
         }).expect("Failed to color a texture");
@@ -293,7 +283,7 @@ fn handle_events(tetris: &mut Tetris, quit: &mut bool, timer: &mut SystemTime, e
         }
 
         if !make_permanent {
-            if tetris.change_current_piece_position( tmp_x, tmp_y) == false
+            if tetris.change_current_piece_position(tmp_x, tmp_y) == false
                 && tmp_y != tetris.get_current_piece().unwrap().get_y() {
                 make_permanent = true;
             }
@@ -307,11 +297,33 @@ fn handle_events(tetris: &mut Tetris, quit: &mut bool, timer: &mut SystemTime, e
 }
 
 fn print_game_information(tetris: &Tetris) {
+    let mut new_highest_highscore = true;
+    let mut new_highest_lines_sent = true;
+    if let Some((mut highscores, mut lines_sent)) =
+    load_highscores_and_lines() {
+        new_highest_highscore = update_vec(&mut highscores,
+                                           tetris.score);
+        new_highest_lines_sent = update_vec(&mut lines_sent,
+                                            tetris.nb_lines);
+        if new_highest_highscore || new_highest_lines_sent {
+            save_highscores_and_lines(&highscores, &lines_sent);
+        }
+    } else {
+        save_highscores_and_lines(&[tetris.score], &
+            [tetris.nb_lines]);
+    }
     println!("Game over...");
-    println!("Score:           {}", tetris.get_score());
-    // println!("Number of lines: {}", tetris.nb_lines);
+    println!("Score:           {}{}",
+             tetris.score,
+             if new_highest_highscore { " [NEW HIGHSCORE]" } else {
+                 ""
+             });
+    println!("Number of lines: {}{}",
+             tetris.nb_lines,
+             if new_highest_lines_sent { " [NEW HIGHSCORE]" } else {
+                 ""
+             });
     println!("Current level:   {}", tetris.get_current_level());
-    // Check highscores here and update if needed
 }
 
 fn is_time_over(tetris: &Tetris, timer: &SystemTime) -> bool {
@@ -322,5 +334,23 @@ fn is_time_over(tetris: &Tetris, timer: &SystemTime) -> bool {
             millis > LEVEL_TIMES[tetris.get_current_level() as usize - 1]
         }
         Err(_) => false,
+    }
+}
+
+const NB_HIGHSCORES: usize = 5;
+
+fn update_vec(v: &mut Vec<u32>, value: u32) -> bool {
+    if v.len() < NB_HIGHSCORES {
+        v.push(value);
+        v.sort();
+        true
+    } else {
+        for entry in v.iter_mut() {
+            if value > *entry {
+                *entry = value;
+                return true;
+            }
+        }
+        false
     }
 }
