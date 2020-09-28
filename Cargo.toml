@@ -7,12 +7,13 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 # Add this under the "edition" field and before "[dependencies]"
-[lib]
-proc-macro = true
+#[lib]
+#proc-macro = true
 
 [dependencies]
 sdl2 = "^0.30.0"
 quote = "^1.0.7"
+rand = "0.7.3"
 
 [features]
 default = ["sdl2/image"]

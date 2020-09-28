@@ -30,9 +30,13 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b287f64a-9bf6-44e6-a9ab-5a4d8bb6a4b7" name="Default Changelist" comment="First commit">
+    <list default="true" id="b287f64a-9bf6-44e6-a9ab-5a4d8bb6a4b7" name="Default Changelist" comment="Melhorias">
+      <change afterPath="$PROJECT_DIR$/src/game_map.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tetrimino.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tetris.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +46,13 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Rust File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,6 +74,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
   </component>
   <component name="RecentsManager">
@@ -71,9 +83,21 @@
     </key>
   </component>
   <component name="RunManager" selected="Cargo.Run">
+    <configuration name="Check" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="check" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="channel" value="DEFAULT" />
-      <option name="command" value="run --package tetris-sdl --bin tetris-sdl" />
+      <option name="command" value="run --package tetrissdl --bin tetrissdl" />
       <option name="allFeatures" value="false" />
       <option name="emulateTerminal" value="false" />
       <option name="backtrace" value="SHORT" />
@@ -89,8 +113,10 @@
       <option name="allFeatures" value="false" />
       <option name="emulateTerminal" value="false" />
       <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <envs />
       <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
@@ -104,6 +130,7 @@
       <envs />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
@@ -111,6 +138,11 @@
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Cargo.Check" />
+      <item itemvalue="Cargo.Run" />
+      <item itemvalue="Cargo.build" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Cargo.build" />
@@ -119,6 +151,7 @@
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="version" value="2" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -129,6 +162,8 @@
       <option name="presentableId" value="Default" />
       <updated>1601151593281</updated>
       <workItem from="1601151595343" duration="6059000" />
+      <workItem from="1601168642845" duration="201000" />
+      <workItem from="1601168897760" duration="33822000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1601152406357</created>
@@ -137,8 +172,18 @@
       <option name="project" value="LOCAL" />
       <updated>1601152406357</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Melhorias">
+      <created>1601202927760</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1601202927760</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -150,35 +195,73 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
+    <MESSAGE value="Melhorias" />
+    <option name="LAST_COMMIT_MESSAGE" value="Melhorias" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="656" height="171" key="GridCell.Tab.0.bottom" timestamp="1601157114286">
-      <screen x="0" y="27" width="1360" height="741" />
+    <state x="223" y="67" width="1089" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601233751737">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="223" y="67" width="1089" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1601233751737" />
+    <state x="531" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601169583149">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="531" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1601169583149" />
+    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1601206801944">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1601206801944" />
+    <state x="393" y="0" width="957" height="824" key="CommitChangelistDialog2" timestamp="1601202888041">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="393" y="0" width="957" height="824" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1601202888041" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1601226832612">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1601226832612" />
+    <state width="1493" height="208" key="GridCell.Tab.0.bottom" timestamp="1601249138776">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="208" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1601249138776" />
     <state width="656" height="171" key="GridCell.Tab.0.bottom/0.27.1360.741@0.27.1360.741" timestamp="1601157114286" />
-    <state width="656" height="171" key="GridCell.Tab.0.center" timestamp="1601157114285">
-      <screen x="0" y="27" width="1360" height="741" />
+    <state width="1493" height="208" key="GridCell.Tab.0.center" timestamp="1601249138776">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="208" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1601249138776" />
     <state width="656" height="171" key="GridCell.Tab.0.center/0.27.1360.741@0.27.1360.741" timestamp="1601157114285" />
-    <state width="656" height="171" key="GridCell.Tab.0.left" timestamp="1601157114281">
-      <screen x="0" y="27" width="1360" height="741" />
+    <state width="1493" height="208" key="GridCell.Tab.0.left" timestamp="1601249138776">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="208" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1601249138776" />
     <state width="656" height="171" key="GridCell.Tab.0.left/0.27.1360.741@0.27.1360.741" timestamp="1601157114281" />
-    <state width="656" height="171" key="GridCell.Tab.0.right" timestamp="1601157114286">
-      <screen x="0" y="27" width="1360" height="741" />
+    <state width="1493" height="208" key="GridCell.Tab.0.right" timestamp="1601249138776">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="208" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1601249138776" />
     <state width="656" height="171" key="GridCell.Tab.0.right/0.27.1360.741@0.27.1360.741" timestamp="1601157114286" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1601202931078">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1601202931078" />
     <state x="471" y="310" width="418" height="181" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601152260053">
       <screen x="0" y="27" width="1360" height="741" />
     </state>
     <state x="471" y="310" width="418" height="181" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1360.741@0.27.1360.741" timestamp="1601152260053" />
+    <state x="477" y="11" width="581" height="801" key="find.popup" timestamp="1601241214246">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="477" y="11" width="581" height="801" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1601241214246" />
     <state x="484" y="309" width="381" height="183" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1601152307061">
       <screen x="0" y="27" width="1360" height="741" />
     </state>
     <state x="484" y="309" width="381" height="183" key="git4idea.remote.GitConfigureRemotesDialog/0.27.1360.741@0.27.1360.741" timestamp="1601152307061" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1601234072100">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1601234072100" />
   </component>
 </project>
